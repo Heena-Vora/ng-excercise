@@ -1,7 +1,7 @@
 <div *ngIf="user">
-  <img [src]="user.thumbnail" [alt]="user.name" />
-  <h3>{{ user.fullName }}</h3>
+  <img [src]="user.picture.large" [alt]="user.name.first" />
+  <h3>{{ user.name.first }}</h3>
   <p>{{ user.email }}</p>
   <p>{{ user.phone }}</p>
 </div>
-<div>{{user | json}}</div>
+<!-- <div>{{user | json}}</div> -->
