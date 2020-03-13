@@ -1,7 +1,7 @@
 language: node_js
 sudo: true
 node_js:
-  - "7"
+  - "13"
 
 demo/dist: trusty
 
