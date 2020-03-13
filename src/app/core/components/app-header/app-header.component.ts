@@ -1,45 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user.model';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
+import { User } from "../../models/user.model";
+import { UserStatusService } from "../../services/user-status.service";
 
 @Component({
-  selector: 'ng-e-app-header',
-  templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.scss']
+  selector: "ng-e-app-header",
+  templateUrl: "./app-header.component.html",
+  styleUrls: ["./app-header.component.scss"]
 })
-export class AppHeaderComponent implements OnInit {
+export class AppHeaderComponent implements OnInit, OnDestroy {
   user: User = {
-    firstName: 'Ahsan',
-    lastName: 'Ayaz'
+    firstName: "Heena",
+    lastName: "Vora",
+    email: "h.vora139@gmail.com",
+    phone: "+918460219896"
   };
   isLoggedIn: boolean;
-  constructor() { }
+  subscription: Subscription;
+  constructor(private userStatusService: UserStatusService) {}
+
+  signup() {
+    this.userStatusService.login();
+  }
 
   ngOnInit() {
     this.isLoggedIn = false;
+    this.subscription = this.userStatusService.loginState.subscribe(
+      loginState => {
+        this.isLoggedIn = loginState.login;
+      }
+    );
   }
-
-  /**
-   * @author Ahsan Ayaz
-   * @desc Logs the user in
-   */
   login() {
-    this.isLoggedIn = true;
+    this.userStatusService.login();
   }
-
-  /**
-   * @author Ahsan Ayaz
-   * @desc Logs the user in
-   */
-  signup() {
-    this.isLoggedIn = true;
-  }
-
-  /**
-   * @author Ahsan Ayaz
-   * @desc Logs the user out
-   */
   logout() {
-    this.isLoggedIn = false;
+    this.userStatusService.logout();
   }
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

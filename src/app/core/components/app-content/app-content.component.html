@@ -1,9 +1,16 @@
 <div class="app-content">
   <div class="user-profile" *ngIf="isLoggedIn">
-    Hey {{user.firstName}} {{user.lastName}}! Good day ahead!
+    Hey {{ user.firstName }} {{ user.lastName }}! Good day ahead!
   </div>
   <div class="action-btn">
     <button class="app-btn" *ngIf="!isLoggedIn" (click)="login()">Login</button>
-    <button class="app-btn" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    <button class="app-btn" *ngIf="isLoggedIn" (click)="logout()">
+      Logout
+    </button>
   </div>
+
+  <br />
+  <button *ngIf="isLoggedIn" mat-button [routerLink]="['/users/users-list']">
+    View User
+  </button>
 </div>
