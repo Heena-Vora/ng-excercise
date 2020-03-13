@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable()
 export class UserDetailService {
-  private detailObject = new Subject<any>();
+  private detailObject = new BehaviorSubject<any>(null);
   detail = this.detailObject.asObservable();
 
   constructor() {}
